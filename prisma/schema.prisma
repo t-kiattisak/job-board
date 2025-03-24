@@ -19,6 +19,7 @@ model User {
   reviewsGiven    Review[]      @relation("ReviewsGiven")
   reviewsReceived Review[]      @relation("ReviewsReceived")
   createdAt       DateTime      @default(now())
+  Job             Job[]
 }
 
 model Profile {
@@ -31,15 +32,17 @@ model Profile {
 }
 
 model Job {
-  id           String        @id @default(cuid())
-  clientId     String
-  title        String
-  description  String
-  budget       Float
-  skills       JobSkill[]
-  applications Application[]
-  createdAt    DateTime      @default(now())
-  client       User          @relation("ClientJobs", fields: [clientId], references: [id])
+  id             String        @id @default(cuid())
+  clientId       String
+  title          String
+  description    String
+  budget         Float
+  skills         JobSkill[]
+  applications   Application[]
+  selectedUser   User?         @relation(fields: [selectedUserId], references: [id])
+  selectedUserId String?
+  createdAt      DateTime      @default(now())
+  client         User          @relation("ClientJobs", fields: [clientId], references: [id])
 }
 
 model Application {
