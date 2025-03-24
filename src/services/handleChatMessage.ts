@@ -1,7 +1,6 @@
-import * as Effect from "effect/Effect"
+import { Effect, Schema } from "effect"
 import { ChatMessageInput } from "../domain/chat"
 import { prisma } from "../infrastructure/prisma"
-import { Schema } from "@effect/Schema"
 
 export const handleChatMessage = (input: unknown) =>
   Effect.gen(function* (_) {

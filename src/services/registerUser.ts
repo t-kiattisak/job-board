@@ -1,8 +1,7 @@
-import * as Effect from "effect/Effect"
+import { Effect, Schema } from "effect"
 import { RegisterUserInput } from "../domain/user"
 import { prisma } from "../infrastructure/prisma"
 import bcrypt from "bcryptjs"
-import { Schema } from "@effect/Schema"
 
 export const registerUser = (input: unknown) => {
   return Effect.gen(function* (_) {

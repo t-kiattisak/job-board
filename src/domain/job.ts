@@ -1,4 +1,4 @@
-import * as S from "@effect/schema/Schema"
+import { Schema as S } from "effect"
 
 export const CreateJobInput = S.Struct({
   title: S.String.pipe(S.minLength(3)),

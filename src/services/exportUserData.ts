@@ -1,4 +1,4 @@
-import * as Effect from "effect/Effect"
+import { Effect } from "effect"
 import { prisma } from "../infrastructure/prisma"
 
 export const exportUserData = (userId: string) =>

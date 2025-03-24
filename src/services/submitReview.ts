@@ -1,7 +1,6 @@
-import * as Effect from "effect/Effect"
+import { Schema, Effect } from "effect"
 import { SubmitReviewInput } from "../domain/review"
 import { prisma } from "../infrastructure/prisma"
-import { Schema } from "@effect/Schema"
 
 export const submitReview = (input: unknown, reviewerId: string) =>
   Effect.gen(function* (_) {
@@ -33,6 +32,7 @@ export const submitReview = (input: unknown, reviewerId: string) =>
               toUserId: job.clientId,
               rating: parsed.rating,
               comment: parsed.comment,
+              jobId: parsed.jobId,
             },
           }),
         catch: () => new Error("Failed to create review"),

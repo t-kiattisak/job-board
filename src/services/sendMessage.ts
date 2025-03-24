@@ -1,8 +1,6 @@
-import * as Effect from "effect/Effect"
-import * as S from "@effect/schema/Schema"
+import { Effect, Schema } from "effect"
 import { SendMessageInput } from "../domain/message"
 import { prisma } from "../infrastructure/prisma"
-import { Schema } from "@effect/Schema"
 
 export const sendMessage = (input: unknown, senderId: string) =>
   Effect.gen(function* (_) {

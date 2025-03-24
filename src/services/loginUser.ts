@@ -1,9 +1,8 @@
-import * as Effect from "effect/Effect"
 import { LoginInput } from "../domain/auth"
 import { prisma } from "../infrastructure/prisma"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import { Schema } from "@effect/Schema"
+import { Schema, Effect } from "effect"
 
 export const loginUser = (input: unknown) =>
   Effect.gen(function* (_) {

@@ -1,7 +1,6 @@
-import * as Effect from "effect/Effect"
+import { Effect, Schema } from "effect"
 import { CreateJobInput } from "../domain/job"
 import { prisma } from "../infrastructure/prisma"
-import { Schema } from "@effect/Schema"
 
 export const createJob = (input: unknown, userId: string) =>
   Effect.gen(function* (_) {
