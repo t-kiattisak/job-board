@@ -1,7 +1,8 @@
 {
   "name": "job-board",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "dev:ws": "bun run --hot src/ws/index.ts"
   },
   "dependencies": {
     "@effect/schema": "^0.75.5",
