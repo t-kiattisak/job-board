@@ -6,6 +6,7 @@ import reviewRoute from "./routes/review.route"
 import userRoute from "./routes/user.route"
 import dashboardRoute from "./routes/dashboard.route"
 import messageRoute from "./routes/message.route"
+import exportRoute from "./routes/export.route"
 
 const app = new Hono()
 
@@ -16,5 +17,6 @@ app.route("/reviews", reviewRoute)
 app.route("/users", userRoute)
 app.route("/dashboard", dashboardRoute)
 app.route("/messages", messageRoute)
+app.route("/export", exportRoute)
 
 export default app

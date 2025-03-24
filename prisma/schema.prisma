@@ -46,6 +46,7 @@ model Job {
   status         JobStatus     @default(OPEN)
   client         User          @relation("ClientJobs", fields: [clientId], references: [id])
   Message        Message[]
+  Review         Review[]
 }
 
 model Application {
@@ -68,6 +69,8 @@ model Review {
   createdAt  DateTime @default(now())
   fromUser   User     @relation("ReviewsGiven", fields: [fromUserId], references: [id])
   toUser     User     @relation("ReviewsReceived", fields: [toUserId], references: [id])
+  job        Job      @relation(fields: [jobId], references: [id])
+  jobId      String
 }
 
 model Skill {
