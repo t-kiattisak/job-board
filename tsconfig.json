@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2015",
+    "jsxImportSource": "hono/jsx",
+    "moduleResolution": "nodenext",
+    "module": "NodeNext",
+  }
+}

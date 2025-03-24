@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String        @id @default(cuid())
+  email           String        @unique
+  password        String
+  role            Role
+  profile         Profile?
+  skills          UserSkill[]
+  jobs            Job[]         @relation("ClientJobs")
+  applications    Application[]
+  reviewsGiven    Review[]      @relation("ReviewsGiven")
+  reviewsReceived Review[]      @relation("ReviewsReceived")
+  createdAt       DateTime      @default(now())
+}
+
+model Profile {
+  id        String  @id @default(cuid())
+  userId    String  @unique
+  name      String
+  bio       String?
+  avatarUrl String?
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model Job {
+  id           String        @id @default(cuid())
+  clientId     String
+  title        String
+  description  String
+  budget       Float
+  skills       JobSkill[]
+  applications Application[]
+  createdAt    DateTime      @default(now())
+  client       User          @relation("ClientJobs", fields: [clientId], references: [id])
+}
+
+model Application {
+  id        String            @id @default(cuid())
+  userId    String
+  jobId     String
+  status    ApplicationStatus @default(PENDING)
+  user      User              @relation(fields: [userId], references: [id])
+  job       Job               @relation(fields: [jobId], references: [id])
+  createdAt DateTime          @default(now())
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+  fromUser   User     @relation("ReviewsGiven", fields: [fromUserId], references: [id])
+  toUser     User     @relation("ReviewsReceived", fields: [toUserId], references: [id])
+}
+
+model Skill {
+  id    String      @id @default(cuid())
+  name  String      @unique
+  users UserSkill[]
+  jobs  JobSkill[]
+}
+
+model UserSkill {
+  userId  String
+  skillId String
+  user    User   @relation(fields: [userId], references: [id])
+  skill   Skill  @relation(fields: [skillId], references: [id])
+
+  @@id([userId, skillId])
+}
+
+model JobSkill {
+  jobId   String
+  skillId String
+  job     Job    @relation(fields: [jobId], references: [id])
+  skill   Skill  @relation(fields: [skillId], references: [id])
+
+  @@id([jobId, skillId])
+}
+
+enum Role {
+  CLIENT
+  FREELANCER
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
