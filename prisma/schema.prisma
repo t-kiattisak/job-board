@@ -20,6 +20,7 @@ model User {
   reviewsReceived Review[]      @relation("ReviewsReceived")
   createdAt       DateTime      @default(now())
   Job             Job[]
+  Message         Message[]
 }
 
 model Profile {
@@ -42,7 +43,9 @@ model Job {
   selectedUser   User?         @relation(fields: [selectedUserId], references: [id])
   selectedUserId String?
   createdAt      DateTime      @default(now())
+  status         JobStatus     @default(OPEN)
   client         User          @relation("ClientJobs", fields: [clientId], references: [id])
+  Message        Message[]
 }
 
 model Application {
@@ -90,6 +93,22 @@ model JobSkill {
   skill   Skill  @relation(fields: [skillId], references: [id])
 
   @@id([jobId, skillId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  job       Job      @relation(fields: [jobId], references: [id])
+  jobId     String
+  sender    User     @relation(fields: [senderId], references: [id])
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+enum JobStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
 }
 
 enum Role {

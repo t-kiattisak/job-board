@@ -8,6 +8,7 @@ import { requireFreelancerRole } from "../middlewares/requireFreelancerRole"
 import { applyToJob } from "../services/applyToJob"
 import { getJobDetail } from "../services/getJobDetail"
 import { selectApplicant } from "../services/selectApplicant"
+import { completeJob } from "../services/completeJob"
 
 const jobRoute = new Hono<{ Variables: { userId: string } }>()
 
@@ -53,6 +54,18 @@ jobRoute.post(
     const result = await Effect.runPromise(
       selectApplicant(jobId, applicationId, userId)
     )
+    return c.json(result)
+  }
+)
+
+jobRoute.patch(
+  "/:id/complete",
+  authMiddleware,
+  requireClientRole,
+  async (c) => {
+    const jobId = c.req.param("id")
+    const userId = c.get("userId")
+    const result = await Effect.runPromise(completeJob(jobId, userId))
     return c.json(result)
   }
 )
