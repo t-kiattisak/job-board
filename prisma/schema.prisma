@@ -105,6 +105,7 @@ model Message {
   sender    User     @relation(fields: [senderId], references: [id])
   senderId  String
   content   String
+  seenBy    String[] @default([])
   createdAt DateTime @default(now())
 }
 
