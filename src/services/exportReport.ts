@@ -1,7 +1,7 @@
 import * as Effect from "effect/Effect"
 import { prisma } from "../infrastructure/prisma"
 
-export const exportUserData = (userId: string) =>
+export const exportReportData = (userId: string) =>
   Effect.gen(function* (_) {
     const jobs = yield* _(
       Effect.tryPromise({
@@ -11,7 +11,7 @@ export const exportUserData = (userId: string) =>
             include: {
               skills: { include: { skill: true } },
               applications: { include: { user: true } },
-              message: true,
+              Message: true,
             },
           }),
         catch: () => new Error("Failed to fetch jobs"),
