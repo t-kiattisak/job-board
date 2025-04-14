@@ -2,7 +2,7 @@ FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
-COPY bun.lockb package.json prisma ./ 
+COPY bun.lock package.json prisma ./ 
 
 RUN bun install
 RUN bun run generate
