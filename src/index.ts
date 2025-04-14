@@ -20,4 +20,9 @@ app.route("/dashboard", dashboardRoute)
 app.route("/messages", messageRoute)
 app.route("/export", exportRoute)
 
-export default app
+const server = Bun.serve({
+  port: 3000,
+  hostname: "0.0.0.0",
+  fetch: app.fetch,
+})
+console.log(`Server running on ${server.hostname}:${server.port}`)
