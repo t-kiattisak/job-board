@@ -2,7 +2,9 @@
   "name": "job-board",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "dev:ws": "bun run --hot src/ws/index.ts"
+    "dev:ws": "bun run --hot src/ws/index.ts",
+    "start": "bun src/index.ts",
+    "generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",

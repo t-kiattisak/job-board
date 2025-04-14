@@ -10,6 +10,7 @@ import exportRoute from "./routes/export.route"
 
 const app = new Hono()
 
+app.get("/", (c) => c.text("Job Board API is running"))
 app.route("/auth", authRoute)
 app.route("/jobs", jobRoute)
 app.route("/applications", applicationRoute)
