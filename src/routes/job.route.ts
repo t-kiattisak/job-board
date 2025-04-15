@@ -9,6 +9,7 @@ import { applyToJob } from "../services/applyToJob"
 import { getJobDetail } from "../services/getJobDetail"
 import { selectApplicant } from "../services/selectApplicant"
 import { completeJob } from "../services/completeJob"
+import { uploadResume } from "../services/uploadResume"
 
 const jobRoute = new Hono<{ Variables: { userId: string } }>()
 
@@ -66,6 +67,21 @@ jobRoute.patch(
     const jobId = c.req.param("id")
     const userId = c.get("userId")
     const result = await Effect.runPromise(completeJob(jobId, userId))
+    return c.json(result)
+  }
+)
+
+jobRoute.post(
+  "/:id/upload-resume",
+  authMiddleware,
+  requireFreelancerRole,
+  async (c) => {
+    const jobId = c.req.param("id")
+    const userId = c.get("userId")
+    const form = await c.req.formData()
+    const file = form.get("resume") as File
+
+    const result = await Effect.runPromise(uploadResume(jobId, userId, file))
     return c.json(result)
   }
 )

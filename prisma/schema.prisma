@@ -54,6 +54,7 @@ model Application {
   userId    String
   jobId     String
   status    ApplicationStatus @default(PENDING)
+  resumeUrl String?
   user      User              @relation(fields: [userId], references: [id])
   job       Job               @relation(fields: [jobId], references: [id])
   selected  Boolean           @default(false)
