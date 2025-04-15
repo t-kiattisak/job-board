@@ -10,6 +10,7 @@ import { getJobDetail } from "../services/getJobDetail"
 import { selectApplicant } from "../services/selectApplicant"
 import { completeJob } from "../services/completeJob"
 import { uploadResume } from "../services/uploadResume"
+import { getApplicationsForJob } from "../services/getApplicationsForJob"
 
 const jobRoute = new Hono<{ Variables: { userId: string } }>()
 
@@ -83,6 +84,18 @@ jobRoute.post(
 
     const result = await Effect.runPromise(uploadResume(jobId, userId, file))
     return c.json(result)
+  }
+)
+
+jobRoute.get(
+  "/:id/applications",
+  authMiddleware,
+  requireClientRole,
+  async (c) => {
+    const jobId = c.req.param("id")
+    const userId = c.get("userId")
+    const result = await Effect.runPromise(getApplicationsForJob(jobId, userId))
+    return c.json({ success: true, applications: result })
   }
 )
 
