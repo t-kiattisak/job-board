@@ -4,9 +4,11 @@
     "dev": "bun run --hot src/index.ts",
     "dev:ws": "bun run --hot src/ws/index.ts",
     "start": "bun src/index.ts",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "seed": "bun run prisma/seed.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.7.0",
     "@prisma/client": "^6.5.0",
     "@supabase/supabase-js": "^2.49.4",
     "@types/jsonwebtoken": "^9.0.9",

@@ -2,6 +2,7 @@ import { Effect, Schema } from "effect"
 import { RegisterUserInput } from "../domain/user"
 import { prisma } from "../infrastructure/prisma"
 import bcrypt from "bcryptjs"
+import { Role } from "@prisma/client"
 
 export const registerUser = (input: unknown) => {
   return Effect.gen(function* (_) {
@@ -21,7 +22,7 @@ export const registerUser = (input: unknown) => {
             data: {
               email: parsed.email,
               password: hashedPassword,
-              role: "FREELANCER",
+              role: parsed.role as Role,
             },
           }),
         catch: () => new Error("Create user failed"),

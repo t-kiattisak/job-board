@@ -6,4 +6,4 @@ export const RegisterUserInput = S.Struct({
   role: S.Enums({ CLIENT: "CLIENT", FREELANCER: "FREELANCER" }),
 })
 
-export type RegisterUserInput = typeof RegisterUserInput.Type
+export type RegisterUserInputType = typeof RegisterUserInput.Type
