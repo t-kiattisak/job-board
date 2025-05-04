@@ -1,4 +1,5 @@
 import { Hono } from "hono"
+import { cors } from "hono/cors"
 import authRoute from "./routes/auth.route"
 import jobRoute from "./routes/job.route"
 import applicationRoute from "./routes/application.route"
@@ -9,7 +10,7 @@ import messageRoute from "./routes/message.route"
 import exportRoute from "./routes/export.route"
 
 const app = new Hono()
-
+app.use(cors())
 app.get("/", (c) => c.text("Job Board API is running"))
 app.route("/auth", authRoute)
 app.route("/jobs", jobRoute)
@@ -21,7 +22,7 @@ app.route("/messages", messageRoute)
 app.route("/export", exportRoute)
 
 const server = Bun.serve({
-  port: 3000,
+  port: 5050,
   hostname: "0.0.0.0",
   fetch: app.fetch,
 })
